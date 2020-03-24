@@ -41,7 +41,7 @@ bot.onText(/\weather (.+)/, function(msg, match) {
         {
             clothes = 'Приоденьтесь потеплее';
         }
-        var pressure = ax.data.main.pressure/1.333;
+        var pressure = ax.data.main.pressure/1.333.toFixed(2);
         bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like +'\n' + 'Ветерок ' + ax.data.wind.speed + ' м/с' + '\n' + clothes);        
     })
 });
