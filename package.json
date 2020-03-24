@@ -13,6 +13,7 @@
   "dependencies": {
     "node-telegram-bot-api": "0.40.0",
     "request": "2.88.2",
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "axios": "0.19.2"
   }
 }
