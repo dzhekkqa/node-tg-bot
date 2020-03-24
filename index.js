@@ -36,7 +36,12 @@ bot.onText(/\weather (.+)/, function(msg, match) {
         }   
     }).then(ax => {
         console.log(ax);
-        bot.sendMessage(chatId,'\n' + ax.data.weather[0].description + '\n' + 'По ощущениям как ' + ax.data.main.feels_like +'\n' + 'Ветерок ' + ax.data.wind.speed);        
+        var clothes = 'Можно и не одеваться особо';
+        if (ax.data.main.feels_like < 0)
+        {
+            clothes = 'Приоденьтесь потеплее';
+        }
+        bot.sendMessage(chatId,'\n' + ax.data.weather[0].description + '\n' + 'По ощущениям как ' + ax.data.main.feels_like +'\n' + 'Ветерок ' + ax.data.wind.speed + 'м/с' + '\n' + clothes);        
     })
 });
 app.get('/', function (req, res) {
