@@ -36,7 +36,7 @@ bot.onText(/\weather (.+)/, function(msg, match) {
         }   
     }).then(ax => {
         console.log(ax);
-        bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data) + '\n' + ax.data.weather[0].description + '\n' + ax.data.main.feels_like);        
+        bot.sendMessage(chatId, 'Result:\n ' + '\n' + ax.data.weather[0].description + '\n' + ax.data.main.feels_like);        
     })
 });
 app.get('/', function (req, res) {
