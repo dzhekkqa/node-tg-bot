@@ -3,10 +3,11 @@ var express = require('express');
 var app = express();
 var token = process.env.TG_KEY;
 var apikey = process.env.APIKEY;
+var accuweather = process.env.ACCU;
 var bot = new TelegramBot(token, {polling:true});
 var request = require('request');
 var axios = require('axios');
-bot.onText(/\movie (.+)/, function(msg, match){
+bot.onText(/\movie (.+)/, function(msg, match) {
     console.log(msg);
     var movie = match[1];
     var chatId = msg.chat.id;
@@ -16,17 +17,27 @@ bot.onText(/\movie (.+)/, function(msg, match){
             apikey,
             t: movie
         }   
-    }).then(res => {
-        bot.sendMessage(chatId, 'Result:\n '+ body);        
+    }).then(ax => {
+        console.log(ax);
+        bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data));        
     })
-    // request(`http://omdbapi.com/?apikey=${apikey}&t=${movie}`, function(error,response,body){
-    //     if (!error && response.statusCode == 200){
-    //         bot.sendMessage(chatId, '_Looking for _' + movie + '...', {parse_mode:'Markdown'});
-    //         bot.sendMessage(chatId, 'Result:\n '+ body)
-    //     } else {
-    //         console.error(error);
-    //     }
-    // });
+});
+bot.onText(/\weather (.+)/, function(msg, match) {
+    console.log(msg);
+    var city = match[1];
+    var chatId = msg.chat.id;
+    bot.sendMessage(chatId, '_Looking for _' + city + '...', {parse_mode:'Markdown'});
+    axios.get('http://api.openweathermap.org/data/2.5/weather', {
+        params: {
+            appid: accuweather,
+            units: 'metric',
+            lang: 'ru',
+            q: city
+        }   
+    }).then(ax => {
+        console.log(ax);
+        bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data));        
+    })
 });
 app.get('/', function (req, res) {
     res.send('Hello World!');
