@@ -63,7 +63,7 @@ bot.onText(/\погода1 (.+)/, function(msg, match) {
     }).then(ax => {
         console.log(ax);
         //var day = (ax.list.dt).toLocaleString('ru-RU');
-        bot.sendMessage(chatId,'дата: ' + ax.list.dt);        
+        bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data));
     })
 });
 bot.onText(/\совет (.+)/, function(msg, match) {
