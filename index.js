@@ -53,7 +53,7 @@ bot.onText(/\погода1 (.+)/, function(msg, match) {
     var chatId = msg.chat.id;
     bot.sendMessage(chatId, '_Ищу этот ваш _' + city + '...', {parse_mode:'Markdown'});
     //console.log(number.toLocaleString('ru-RU'));
-    axios.get('api.openweathermap.org/data/2.5/forecast', {
+    axios.get('http://api.openweathermap.org/data/2.5/forecast', {
         params: {
             appid: accuweather,
             units: 'metric',
