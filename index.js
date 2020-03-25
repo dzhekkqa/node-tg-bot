@@ -62,7 +62,8 @@ bot.onText(/\погода1 (.+)/, function(msg, match) {
     }).then(ax => {
         console.log(ax);
         var day = ax.data.list[0].dt_txt;
-        bot.sendMessage(chatId, 'Result:\n '+ day + '\n' + '..');
+        day = day.substring(0,9);
+        bot.sendMessage(chatId, 'День:\n '+ day + '\n' + 'Нынче на улице ' + list[0].weather[0].description + '\n' + 'Температура воздуха ' + list[0].main.temp + 'градусов');
     })
 });
 bot.onText(/\совет (.+)/, function(msg, match) {
