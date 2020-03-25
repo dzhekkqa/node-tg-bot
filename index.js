@@ -39,7 +39,10 @@ bot.onText(/\погода (.+)/, function(msg, match) {
         console.log(ax);
         var pressure = ax.data.main.pressure/1.333;
         pressure = pressure.toFixed(2);
-        bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/сек');        
+        var weatherTemp =  ax.data.main.temp;
+        var advice = 'не надевайте ничего';
+        if (weatherTemp < -10) { advice = 'надевайте пуховик' }
+        bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/сек' + '\n' + advice);        
     })
 });
 bot.onText(/\совет (.+)/, function(msg, match) {
