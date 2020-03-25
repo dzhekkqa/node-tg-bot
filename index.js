@@ -62,11 +62,20 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
     }).then(ax => {
         console.log(ax);
         var message = '';
-        for (var i = 0; i < 5; i++)
+        var size = JSON.stringify(ax.data.list).length;
+        var indexes = [];
+        for (var i = 0; i < size; i++)
         {
-            var day = ax.data.list[i].dt_txt;
-            var temp = ax.data.list[i].main.temp;
-            var wind = ax.data.list[i].wind.speed;
+            var temp = JSON.stringify(ax.data.list[i].dt_txt).split(' ', 1);
+            var temp1 = JSON.stringify(ax.data.list[i+1].dt_txt).split(' ', 1);
+            if(temp != temp1)
+            indexes = indexes.push(i+1);
+        }
+        for (var i = 0; i < indexes.size; i++)
+        {
+            var day = ax.data.list[indexes[i]].dt_txt;
+            var temp = ax.data.list[indexes[i]].main.temp;
+            var wind = ax.data.list[indexes[i]].wind.speed;
             message = message + 'День : ' + day + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
         }
         bot.sendMessage(chatId, message);
