@@ -52,7 +52,6 @@ bot.onText(/\погода1 (.+)/, function(msg, match) {
     var city = match[1];
     var chatId = msg.chat.id;
     bot.sendMessage(chatId, '_Ищу этот ваш _' + city + '...', {parse_mode:'Markdown'});
-    //console.log(number.toLocaleString('ru-RU'));
     axios.get('http://api.openweathermap.org/data/2.5/forecast', {
         params: {
             appid: accuweather,
@@ -62,8 +61,8 @@ bot.onText(/\погода1 (.+)/, function(msg, match) {
         }   
     }).then(ax => {
         console.log(ax);
-        //var day = (ax.list.dt).toLocaleString('ru-RU');
-        bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data));
+        var day = (ax.list.dt).toLocaleString('ru-RU');
+        bot.sendMessage(chatId, 'Result:\n '+ day);
     })
 });
 bot.onText(/\совет (.+)/, function(msg, match) {
