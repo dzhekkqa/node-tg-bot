@@ -62,7 +62,7 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
     }).then(ax => {
         console.log(ax);
         var message = '';
-        for (var i = 8; i <= 40; i + 8)
+        for (var i = 0; i < 40; i + 8)
         {
             var day = ax.data.list[i].dt_txt;
             var temp = ax.data.list[i].main.temp;
