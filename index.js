@@ -37,9 +37,21 @@ bot.onText(/\weather (.+)/, function(msg, match) {
     }).then(ax => {
         console.log(ax);
         var clothes = 'Можно и не одеваться особо';
-        if (ax.data.main.feels_like < 0)
+        if (ax.data.main.feels_like < 0 && ax.data.main.feels_like > -13)
         {
             clothes = 'Приоденьтесь потеплее';
+        }
+        if (ax.data.main.feels_like < -20)
+        {
+            clothes = 'Наденьте все тёплые вещи, которые найдете';
+        }
+        if (ax.data.wind.speed > 6)
+        {
+            clothes = clothes + ', наденьте что-нибудь от ветра';
+        }
+        if (ax.data.weather[0].description == 'пасмурно' && ax.data.main.feels_like > 0)
+        {
+            clothes = clothes + ', рекомендую взять зонт';
         }
         var pressure = ax.data.main.pressure/1.333;
         pressure = pressure.toFixed(2);
