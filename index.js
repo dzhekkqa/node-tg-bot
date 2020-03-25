@@ -22,6 +22,11 @@ bot.onText(/\movie (.+)/, function(msg, match) {
         bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data));        
     })
 });
+bot.onText(/\start (.+)/, function(msg, match) {
+    console.log(msg);
+    var chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Добро пожаловать в погодного бота!' + '\n' + 'Чтобы узнать погоду, введите погода и название города' + '\n' + 'Чтобы узнать что надеть, введите совет и название города');        
+    });
 //bot.sendMessage(chatId, 'Добро пожаловать в погодного бота!' + '\n' + 'Чтобы узнать погоду, введите погода и название города' + '\n' + 'Чтобы узнать что надеть, введите совет и название города');
 bot.onText(/\погода (.+)/, function(msg, match) {
     console.log(msg);
