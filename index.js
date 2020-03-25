@@ -23,7 +23,7 @@ bot.onText(/\movie (.+)/, function(msg, match) {
     })
 });
 bot.sendMessage(chatId, 'Добро пожаловать в погодного бота!' + '\n' + 'Чтобы узнать погоду, введите погода и название города' + '\n' + 'Чтобы узнать что надеть, введите совет и название города');
-bot.onText(/погода (.+)/, function(msg, match) {
+bot.onText(/\погода (.+)/, function(msg, match) {
     console.log(msg);
     var city = match[1];
     var chatId = msg.chat.id;
@@ -42,7 +42,7 @@ bot.onText(/погода (.+)/, function(msg, match) {
         bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/сек');        
     })
 });
-bot.onText(/совет (.+)/, function(msg, match) {
+bot.onText(/\совет (.+)/, function(msg, match) {
     console.log(msg);
     var city = match[1];
     var chatId = msg.chat.id;
