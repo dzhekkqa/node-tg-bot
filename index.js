@@ -68,8 +68,8 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
             var temp = ax.data.list[i].main.temp;
             var wind = ax.data.list[i].wind.speed;
             message = message + 'День : ' + day + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
-            bot.sendMessage(chatId, message);
         }
+        bot.sendMessage(chatId, message);
     })
 });
 bot.onText(/\совет (.+)/, function(msg, match) {
