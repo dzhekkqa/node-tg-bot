@@ -26,7 +26,7 @@ bot.onText(/\weather (.+)/, function(msg, match) {
     console.log(msg);
     var city = match[1];
     var chatId = msg.chat.id;
-    bot.sendMessage(chatId, '_Looking for _' + city + '...', {parse_mode:'Markdown'});
+    bot.sendMessage(chatId, '_Ищу этот ваш _' + city + '...', {parse_mode:'Markdown'});
     axios.get('http://api.openweathermap.org/data/2.5/weather', {
         params: {
             appid: accuweather,
@@ -45,7 +45,7 @@ bot.onText(/\weather (.+)/, function(msg, match) {
         {
             clothes = 'Наденьте все тёплые вещи, которые найдете';
         }
-        if (ax.data.wind.speed > 6)
+        if (ax.data.wind.speed > 6 && ax.data.wind.speed < 15)
         {
             clothes = clothes + ', наденьте что-нибудь от ветра';
         }
@@ -53,9 +53,13 @@ bot.onText(/\weather (.+)/, function(msg, match) {
         {
             clothes = clothes + ', рекомендую взять зонт';
         }
+        if (ax.data.wind.speed > 15)
+        {
+            clothes = clothes + ', вас может сдуть, будьте осторожны'
+        }
         var pressure = ax.data.main.pressure/1.333;
         pressure = pressure.toFixed(2);
-        bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like +'\n' + 'Ветерок ' + ax.data.wind.speed + ' м/с' + '\n' + clothes);        
+        bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/с' + '\n' + clothes);        
     })
 });
 app.get('/', function (req, res) {
