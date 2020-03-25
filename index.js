@@ -44,10 +44,26 @@ bot.onText(/\погода (.+)/, function(msg, match) {
         console.log(ax);
         var pressure = ax.data.main.pressure/1.333;
         pressure = pressure.toFixed(2);
-        var weatherTemp =  ax.data.main.temp;
-        var advice = 'не надевайте ничего';
-        if (weatherTemp < -10) { advice = 'надевайте пуховик' }
-        bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/сек' + '\n' + advice);        
+        bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/сек');        
+    })
+});
+bot.onText(/\погода1 (.+)/, function(msg, match) {
+    console.log(msg);
+    var city = match[1];
+    var chatId = msg.chat.id;
+    bot.sendMessage(chatId, '_Ищу этот ваш _' + city + '...', {parse_mode:'Markdown'});
+    //console.log(number.toLocaleString('ru-RU'));
+    axios.get('api.openweathermap.org/data/2.5/forecast', {
+        params: {
+            appid: accuweather,
+            units: 'metric',
+            lang: 'ru',
+            q: city
+        }   
+    }).then(ax => {
+        console.log(ax);
+        var day = (ax.list[0].dt).toLocaleString('ru-RU');
+        bot.sendMessage(chatId,'дата: ' + day);        
     })
 });
 bot.onText(/\совет (.+)/, function(msg, match) {
