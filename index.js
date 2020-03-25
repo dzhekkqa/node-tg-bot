@@ -22,11 +22,31 @@ bot.onText(/\movie (.+)/, function(msg, match) {
         bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data));        
     })
 });
-bot.onText(/\weather (.+)/, function(msg, match) {
+bot.sendMessage(chatId, 'Добро пожаловать в погодного бота!' + '\n' + 'Чтобы узнать погоду, введите /погода и название города' + '\n' + 'Чтобы узнать что надеть, введите /совет и название города');
+bot.onText(/\погода (.+)/, function(msg, match) {
     console.log(msg);
     var city = match[1];
     var chatId = msg.chat.id;
     bot.sendMessage(chatId, '_Ищу этот ваш _' + city + '...', {parse_mode:'Markdown'});
+    axios.get('http://api.openweathermap.org/data/2.5/weather', {
+        params: {
+            appid: accuweather,
+            units: 'metric',
+            lang: 'ru',
+            q: city
+        }   
+    }).then(ax => {
+        console.log(ax);
+        var pressure = ax.data.main.pressure/1.333;
+        pressure = pressure.toFixed(2);
+        bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/с');        
+    })
+});
+bot.onText(/\совет (.+)/, function(msg, match) {
+    console.log(msg);
+    var city = match[1];
+    var chatId = msg.chat.id;
+    bot.sendMessage(chatId, '_Что бы надеть... _' + city + '...', {parse_mode:'Markdown'});
     axios.get('http://api.openweathermap.org/data/2.5/weather', {
         params: {
             appid: accuweather,
@@ -59,7 +79,7 @@ bot.onText(/\weather (.+)/, function(msg, match) {
         }
         var pressure = ax.data.main.pressure/1.333;
         pressure = pressure.toFixed(2);
-        bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/с' + '\n' + clothes);        
+        bot.sendMessage(chatId,'\n' + clothes);        
     })
 });
 app.get('/', function (req, res) {
