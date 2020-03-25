@@ -32,7 +32,7 @@ bot.onText(/\погода (.+)/, function(msg, match) {
     console.log(msg);
     var city = match[1];
     var chatId = msg.chat.id;
-    bot.sendMessage(chatId, '_Ищу этот ваш _' + city + '...', {parse_mode:'Markdown'});
+    bot.sendMessage(chatId, 'Ищу этот ваш ' + city + '...', {parse_mode:'Markdown'});
     axios.get('http://api.openweathermap.org/data/2.5/weather', {
         params: {
             appid: accuweather,
@@ -51,7 +51,7 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
     console.log(msg);
     var city = match[1];
     var chatId = msg.chat.id;
-    bot.sendMessage(chatId, '_Ищу этот ваш _' + city + '...', {parse_mode:'Markdown'});
+    bot.sendMessage(chatId, 'Ищу этот ваш ' + city + '...', {parse_mode:'Markdown'});
     axios.get('http://api.openweathermap.org/data/2.5/forecast', {
         params: {
             appid: accuweather,
@@ -62,7 +62,7 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
     }).then(ax => {
         console.log(ax);
         var message = '';
-        for (var i = 2; i <= 14; i+3)
+        for (var i = 8; i <= 40; i + 8)
         {
             var day = ax.data.list[i].dt_txt;
             var temp = ax.data.list[i].main.temp;
