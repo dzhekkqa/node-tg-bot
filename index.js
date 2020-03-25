@@ -61,11 +61,15 @@ bot.onText(/\погода1 (.+)/, function(msg, match) {
         }   
     }).then(ax => {
         console.log(ax);
-        var day = ax.data.list[2].dt_txt;
-        var pressure = ax.data.list[2].main.pressure/1.333;
-        pressure = pressure.toFixed(2);
-        day = day.substring(0,10);
-        bot.sendMessage(chatId, 'День: '+ day + '\n' + 'Нынче на улице ' + ax.data.list[2].weather[0].description + '\n' + 'Температура воздуха ' + ax.data.list[2].main.temp + ' градусов' + '\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' + '\n' + 'По ощущениям как '+ ax.data.list[2].main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.list[2].wind.speed + ' м/сек');
+        var message;
+        for (var i = 0; i<5; i++)
+        {
+            var day = ax.data.list[i].dt_txt;
+            var temp = ax.data.list[i].main.temp;
+            var wind = ax.data.list[i].wind.speed;
+            message = 'День : ' + day + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
+        }
+        bot.sendMessage(chatId, message);
     })
 });
 bot.onText(/\совет (.+)/, function(msg, match) {
