@@ -61,7 +61,7 @@ bot.onText(/\погода1 (.+)/, function(msg, match) {
         }   
     }).then(ax => {
         console.log(ax);
-        var day = ax.data.list[0].dt_txt;
+        var day = ax.data.list[1].dt_txt;
         var pressure = ax.data.list[1].main.pressure/1.333;
         pressure = pressure.toFixed(2);
         day = day.substring(0,10);
