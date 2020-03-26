@@ -7,21 +7,6 @@ var accuweather = process.env.ACCU;
 var bot = new TelegramBot(token, {polling:true});
 var request = require('request');
 var axios = require('axios');
-bot.onText(/\movie (.+)/, function(msg, match) {
-    console.log(msg);
-    var movie = match[1];
-    var chatId = msg.chat.id;
-    bot.sendMessage(chatId, '_Looking for _' + movie + '...', {parse_mode:'Markdown'});
-    axios.get('http://omdbapi.com/', {
-        params: {
-            apikey,
-            t: movie
-        }   
-    }).then(ax => {
-        console.log(ax);
-        bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data));        
-    })
-});
 bot.onText(/\помощь/, function(msg, match) {
     console.log(msg);
     var chatId = msg.chat.id;
