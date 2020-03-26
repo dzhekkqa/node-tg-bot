@@ -22,10 +22,10 @@ bot.onText(/\movie (.+)/, function(msg, match) {
         bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data));        
     })
 });
-bot.onText(/\start/, function(msg, match) {
+bot.onText(/\помощь (.+)/, function(msg, match) {
     console.log(msg);
     var chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Добро пожаловать в погодного бота!' + '\n' + 'Чтобы узнать погоду, введите погода и название города' + '\n' + 'Чтобы узнать что надеть, введите совет и название города');        
+    bot.sendMessage(chatId, 'Добро пожаловать в погодного бота!' + '\n' + 'Чтобы узнать погоду на сегодня, введите /погода и название города' + '\n' + 'Чтобы узнать что надеть сегодня, введите /совет и название города' + '\n' + 'Чтобы узнать прогноз на 5 дней, введите /прогноз5 и название города');        
     });
 //bot.sendMessage(chatId, 'Добро пожаловать в погодного бота!' + '\n' + 'Чтобы узнать погоду, введите погода и название города' + '\n' + 'Чтобы узнать что надеть, введите совет и название города');
 bot.onText(/\погода (.+)/, function(msg, match) {
@@ -47,7 +47,7 @@ bot.onText(/\погода (.+)/, function(msg, match) {
         bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/сек');        
     })
 });
-bot.onText(/\погода5 (.+)/, function(msg, match) {
+bot.onText(/\прогноз5 (.+)/, function(msg, match) {
     console.log(msg);
     var city = match[1];
     var chatId = msg.chat.id;
