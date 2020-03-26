@@ -22,7 +22,7 @@ bot.onText(/\movie (.+)/, function(msg, match) {
         bot.sendMessage(chatId, 'Result:\n '+ JSON.stringify(ax.data));        
     })
 });
-bot.onText(/\помощь (.+)/, function(msg, match) {
+bot.onText(/\помощь/, function(msg, match) {
     console.log(msg);
     var chatId = msg.chat.id;
     bot.sendMessage(chatId, 'Добро пожаловать в погодного бота!' + '\n' + 'Чтобы узнать погоду на сегодня, введите /погода и название города' + '\n' + 'Чтобы узнать что надеть сегодня, введите /совет и название города' + '\n' + 'Чтобы узнать прогноз на 5 дней, введите /прогноз5 и название города');        
