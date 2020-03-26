@@ -73,9 +73,10 @@ bot.onText(/\погода5 (.+)/, function(msg, match) {
             if(day != day1)
             {
                 var daya = ax.data.list[i+1].dt_txt;
+                daya = daya.substring(0,10);
                 var temp = ax.data.list[i+1].main.temp;
                 var wind = ax.data.list[i+1].wind.speed;
-                message = message + 'День : ' + daya + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
+                message = message + 'День : ' + daya + ' температура: ' + temp + ' градусов' +' ветер: ' + wind + ' м/c' +'\n' +'\n';
             }
         }
         bot.sendMessage(chatId, message);
@@ -107,9 +108,10 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
             if(day != day1)
             {
                 var daya = ax.data.list[i+1].dt_txt;
+                daya = daya.substring(0,10);
                 var temp = ax.data.list[i+1].main.temp;
                 var wind = ax.data.list[i+1].wind.speed;
-                message = message + 'День : ' + daya + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
+                message = message + 'День : ' + daya + ' температура: ' + temp + ' градусов' + ' ветер: ' + wind + ' м/c' + '\n' +'\n';
             }
             break;
         }
