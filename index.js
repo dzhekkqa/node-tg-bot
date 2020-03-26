@@ -47,6 +47,40 @@ bot.onText(/\погода (.+)/, function(msg, match) {
         bot.sendMessage(chatId,'Нынче на улице ' + ax.data.weather[0].description + '\n' + 'Температура воздуха ' + ax.data.main.temp + ' градусов' +'\n' + 'Если вдруг интересно, то давление '+ pressure + ' мм' +'\n' + 'По ощущениям как ' + ax.data.main.feels_like + ' градусов' + '\n' + 'Ветерок ' + ax.data.wind.speed + ' м/сек');        
     })
 });
+bot.onText(/\погода5 (.+)/, function(msg, match) {
+    console.log(msg);
+    var city = match[1];
+    var chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Ищу этот ваш ' + city + '...', {parse_mode:'Markdown'});
+    axios.get('http://api.openweathermap.org/data/2.5/forecast', {
+        params: {
+            appid: accuweather,
+            units: 'metric',
+            lang: 'ru',
+            q: city
+        }   
+    }).then(ax => {
+        console.log(ax);
+        var message = '';
+        var size = ax.data.list.length;
+        var index = [];
+        for (var i = 0; i < size-1; i++)
+        {
+            var day = ax.data.list[i].dt_txt;
+            var day1 = ax.data.list[i+1].dt_txt;
+            day = day.substring(0,10);
+            day1 = day1.substring(0,10);
+            if(day != day1)
+            {
+                var daya = ax.data.list[i+1].dt_txt;
+                var temp = ax.data.list[i+1].main.temp;
+                var wind = ax.data.list[i+1].wind.speed;
+                message = message + 'День : ' + daya + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
+            }
+        }
+        bot.sendMessage(chatId, message);
+    })
+});
 bot.onText(/\погодазавтра (.+)/, function(msg, match) {
     console.log(msg);
     var city = match[1];
@@ -77,6 +111,7 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
                 var wind = ax.data.list[i+1].wind.speed;
                 message = message + 'День : ' + daya + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
             }
+            break;
         }
         bot.sendMessage(chatId, message);
     })
