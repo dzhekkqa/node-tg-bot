@@ -63,18 +63,18 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
         console.log(ax);
         var message = '';
         var size = JSON.stringify(ax.data.list).length;
-        var index = [];
         for (var i = 0; i < size-1; i++)
         {
+            var j = i+1;
             var day = ax.data.list[i].dt_txt;
-            var day1 = ax.data.list[i+1].dt_txt;
+            var day1 = ax.data.list[j].dt_txt;
             day = day.substring(0,10);
             day1 = day1.substring(0,10);
             if(day != day1)
             {
-                var daya = ax.data.list[i+1].dt_txt;
-                var temp = ax.data.list[i+1].main.temp;
-                var wind = ax.data.list[i+1].wind.speed;
+                var daya = ax.data.list[j].dt_txt;
+                var temp = ax.data.list[j].main.temp;
+                var wind = ax.data.list[j].wind.speed;
                 message = message + 'День : ' + daya + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
             }
         }
