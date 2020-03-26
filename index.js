@@ -69,14 +69,10 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
             var day = ax.data.list[i].dt_txt.substring(0,10);
             var day1 = ax.data.list[i+1].dt_txt.substring(0,10);
             if(day != day1)
-            index = index.push(i+1);
-        }
-        for (var i = 0; i < indexes.length; i++)
-        {
-            var day = ax.data.list[indexes[i]].dt_txt;
-            var temp = ax.data.list[indexes[i]].main.temp;
-            var wind = ax.data.list[indexes[i]].wind.speed;
-            message = message + 'День : ' + day + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
+            var daya = ax.data.list[indexes[i+1]].dt_txt;
+            var temp = ax.data.list[indexes[i+1]].main.temp;
+            var wind = ax.data.list[indexes[i+1]].wind.speed;
+            message = message + 'День : ' + daya + ' температура: ' + temp + ' ветер: ' + wind + '\n' +'\n';
         }
         bot.sendMessage(chatId, message);
     })
