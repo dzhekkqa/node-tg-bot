@@ -63,15 +63,15 @@ bot.onText(/\погодазавтра (.+)/, function(msg, match) {
         console.log(ax);
         var message = '';
         var size = JSON.stringify(ax.data.list).length;
-        var indexes = [];
-        for (var i = 0; i < size; i++)
+        var index = [];
+        for (var i = 0; i < size-1; i++)
         {
-            var temp = JSON.stringify(ax.data.list[i].dt_txt).split(' ', 1);
-            var temp1 = JSON.stringify(ax.data.list[i+1].dt_txt).split(' ', 1);
-            if(temp != temp1)
-            indexes = indexes.push(i+1);
+            var day = ax.data.list[i].dt_txt.substring(0,10);
+            var day1 = ax.data.list[i+1].dt_txt.substring(0,10);
+            if(day != day1)
+            index = index.push(i+1);
         }
-        for (var i = 0; i < indexes.size; i++)
+        for (var i = 0; i < indexes.length; i++)
         {
             var day = ax.data.list[indexes[i]].dt_txt;
             var temp = ax.data.list[indexes[i]].main.temp;
